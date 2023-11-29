@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2023-11-29
+
+### Added
+
+- Methods for getting rgb and grayscale (8, 12, and 16 bits) Pillow images.
+
+### Changed
+
+- Scale samples to number of bits in output.
+- RLE segment are even number of bytes.
+- MCT used for jpeg2000 lossless YBR.
+
 ## [0.1.0] - 2023-11-22
 
 ### Added

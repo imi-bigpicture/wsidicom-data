@@ -16,21 +16,14 @@
 
 import hashlib
 
-from PIL import Image
-from wsidicom.codec import (
-    Channels,
-    Encoder,
-)
+from wsidicom.codec import Encoder
 
 from wsidicom_data.test_data import EncodedTestData, TestData, defined_encoder_settings
 
 
 def create_encoded_test_files():
     for settings in defined_encoder_settings:
-        test_tile_path = TestData.get_test_tile_path()
-        image = Image.open(test_tile_path)
-        if settings.channels == Channels.GRAYSCALE:
-            image = image.convert("L")
+        image = TestData.image(settings.bits, settings.samples_per_pixel)
         encoder = Encoder.create(settings)
         encoded = encoder.encode(image)
         output_path = EncodedTestData.get_filepath_for_encoder_settings(settings)

@@ -28,14 +28,55 @@ from wsidicom.codec import (
     Settings,
     Subsampling,
 )
+from PIL.Image import Image as PILImage
+from PIL import Image
 
 
 class TestData:
     test_data_path = Path(__file__).parent.joinpath("data")
 
     @classmethod
-    def get_test_tile_path(cls):
+    def get_test_tile_path(cls) -> Path:
         return cls.test_data_path.joinpath("test_tile.png")
+
+    @classmethod
+    def rgb(cls) -> PILImage:
+        return Image.open(cls.get_test_tile_path())
+
+    @classmethod
+    def grayscale_8(cls) -> PILImage:
+        return cls.rgb().convert("L")
+
+    @classmethod
+    def grayscale_12(cls) -> PILImage:
+        return cls._scale_bits(cls._grayscale_32(), 8, 12).convert("I;16L")
+
+    @classmethod
+    def grayscale_16(cls) -> PILImage:
+        return cls._scale_bits(cls._grayscale_32(), 8, 16).convert("I;16L")
+
+    @classmethod
+    def image(cls, bits: int, samples_per_pixel: int) -> PILImage:
+        if samples_per_pixel == 1:
+            if bits == 8:
+                return cls.grayscale_8()
+            elif bits == 12:
+                return cls.grayscale_12()
+            elif bits == 16:
+                return cls.grayscale_16()
+        elif samples_per_pixel == 3 and bits == 8:
+            return cls.rgb()
+        raise ValueError(
+            f"Unsupported bit depth {bits} or samples_per_pixel {samples_per_pixel}."
+        )
+
+    @classmethod
+    def _grayscale_32(cls) -> PILImage:
+        return cls.rgb().convert("I")
+
+    @classmethod
+    def _scale_bits(cls, image: PILImage, from_bits: int, to_bits: int) -> PILImage:
+        return image.point(lambda x: 2 ** (to_bits - from_bits) * x)
 
 
 class EncodedTestData:
