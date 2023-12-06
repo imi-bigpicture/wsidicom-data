@@ -24,7 +24,7 @@ from wsidicom_data.test_data import EncodedTestData, TestData, defined_encoder_s
 def create_encoded_test_files():
     for settings in defined_encoder_settings:
         image = TestData.image(settings.bits, settings.samples_per_pixel)
-        encoder = Encoder.create(settings)
+        encoder = Encoder.create_for_settings(settings)
         encoded = encoder.encode(image)
         output_path = EncodedTestData.get_filepath_for_encoder_settings(settings)
         with open(output_path, "wb") as file:
