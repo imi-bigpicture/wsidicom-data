@@ -25,7 +25,6 @@ test_tile_path = TestData.get_test_tile_path()
 
 settings = defined_encoder_settings[0]
 encoded_test_file_path = EncodedTestData.get_filepath_for_encoder_settings(settings)
-
 ```
 
 ## Description of data

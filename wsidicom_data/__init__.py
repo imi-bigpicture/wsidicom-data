@@ -18,4 +18,4 @@ __all__ = [
     "TestData",
     "EncodedTestData",
 ]
-from wsidicom_data.test_data import TestData, EncodedTestData
+from wsidicom_data.test_data import EncodedTestData, TestData
