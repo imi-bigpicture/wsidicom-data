@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-27
+
+### Added
+
+- Encoded files for JPEG Lossless SV1, which settings with predictor 1 give from wsidicom 0.38.
+
+### Changed
+
+- The encoded files for JPEG Lossless are encoded with predictor 7. They were encoded with predictor 1, as the settings for both predictors wrote the same files.
+
+### Removed
+
+- Settings and encoded file for JPEG Lossless with YBR, which stored the samples as RGB. wsidicom 0.38 does not allow such settings.
+
 ## [0.3.0] - 2023-12-06
 
 ### Added
