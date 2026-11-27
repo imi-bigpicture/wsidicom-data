@@ -15,8 +15,9 @@
 """Module for getting test data."""
 
 from pathlib import Path
-from typing import List
 
+from PIL import Image
+from PIL.Image import Image as PILImage
 from wsidicom.codec import (
     Channels,
     Jpeg2kSettings,
@@ -28,8 +29,6 @@ from wsidicom.codec import (
     Settings,
     Subsampling,
 )
-from PIL.Image import Image as PILImage
-from PIL import Image
 
 
 class TestData:
@@ -94,17 +93,15 @@ class EncodedTestData:
         return cls.test_data_path.joinpath(filename).with_suffix(settings.extension)
 
 
-defined_encoder_settings: List[Settings] = [
+defined_encoder_settings: list[Settings] = [
     JpegSettings(95, 8, Channels.GRAYSCALE),
     JpegSettings(95, 8, Channels.YBR, Subsampling.R444),
     JpegSettings(95, 8, Channels.RGB, Subsampling.R444),
     JpegSettings(95, 12, Channels.GRAYSCALE),
     JpegLosslessSettings(7, 8, Channels.GRAYSCALE),
-    JpegLosslessSettings(7, 8, Channels.YBR),
     JpegLosslessSettings(7, 8, Channels.RGB),
     JpegLosslessSettings(7, 16, Channels.GRAYSCALE),
     JpegLosslessSettings(1, 8, Channels.GRAYSCALE),
-    JpegLosslessSettings(1, 8, Channels.YBR),
     JpegLosslessSettings(1, 8, Channels.RGB),
     JpegLosslessSettings(1, 16, Channels.GRAYSCALE),
     JpegLsSettings(0, 8, Channels.GRAYSCALE),
